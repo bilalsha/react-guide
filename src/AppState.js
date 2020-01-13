@@ -1,30 +1,64 @@
 import React, { Component } from 'react';
-import './App.css'
-import UserOutput from './Components/UserOutput/UserOutput'
-import UserInput from './Components/UserInput/UserInput'
+import './App.css';
+import Validation from './Components/Validation/Validation';
+import Chart from './Components/Chart/Chart';
 
 class AppState extends Component {
-    state = { 
-        username: 'Udemy'
-     }
+	state = {
+		characters: ''
+	};
 
-    changeUsernameHandler = (event) => {
-        this.setState({
-            username: event.target.value
-        })
-    }
+	inputChangeHandler = (event) => {
+		this.setState({
+			characters: event.target.value
+		});
+	};
 
-    render() { 
-        return ( 
-            <div className="App">
-                <h1>Udemy Maximilian Assignement 1</h1>
-                <p>I find two way binding challanging and by watch the tutorial again I overcome this problem</p>
-                <UserInput changed={this.changeUsernameHandler} username={this.state.username}></UserInput>
-                <UserOutput username = {this.state.username}></UserOutput>
-                <UserOutput username = {this.state.username}></UserOutput>
-            </div>
-         );
-    }
+	deleteCharacterHandler = (characterIndex) => {
+		const text = this.state.characters.slice().split('');
+		text.splice(characterIndex, 1);
+		const updatedText = text.join('');
+		this.setState({
+			characters: updatedText
+		});
+	};
+
+	render() {
+		return (
+			<div className="App">
+				<h1>Tutorial 2</h1>
+				<ol>
+					<li>
+						Create an input field (in App component) with a change listener which outputs the length of the
+						entered text below it (e.g. in a paragraph).
+					</li>
+					<li>Create a new component (=> ValidationComponent) which receives the text length as a prop</li>
+					<li>
+						Inside the ValidationComponent, either output "Text too short" or "Text long enough" depending
+						on the text length (e.g. take 5 as a minimum length)
+					</li>
+					<li>
+						Create another component (=> CharComponent) and style it as an inline box (=> display:
+						inline-block, padding: 16px, text-align: center, margin: 16px, border: 1px solid black).
+					</li>
+					<li>
+						Render a list of CharComponents where each CharComponent receives a different letter of the
+						entered text (in the initial input field) as a prop.
+					</li>
+					<li>When you click a CharComponent, it should be removed from the entered text.</li>
+				</ol>
+				<p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
+				<hr />
+				<input type="text" onChange={this.inputChangeHandler} value={this.state.characters} />
+				<Validation length={this.state.characters.split('').length} />
+				{this.state.characters.split('').map((character, index) => {
+					return (
+						<Chart character={character} key={index} delete={() => this.deleteCharacterHandler(index)} />
+					);
+				})}
+			</div>
+		);
+	}
 }
- 
+
 export default AppState;

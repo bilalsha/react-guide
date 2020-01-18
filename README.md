@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+I am learning react so I am adding code that I learn each time. Hope it helps other. Each branch contain specific topic and a assignment to cover that topic.
+
 ### `npm start`
 
 Runs the app in the development mode.<br />
